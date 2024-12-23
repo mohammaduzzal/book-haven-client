@@ -11,7 +11,7 @@ const Navbar = () => {
         <div className="flex-1">
           <Link to="/" className="flex gap-2 items-center">
             <img className="w-auto h-7" src={logo} alt="Book Haven Logo" />
-            <span className="font-bold text-richGreen">Book Haven</span>
+            <span className="md:text-xl lg:text-2xl font-bold text-richGreen">Book Haven</span>
           </Link>
         </div>
         <div className="flex-none">
