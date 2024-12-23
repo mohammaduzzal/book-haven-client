@@ -6,6 +6,7 @@ import router from './router/router'
 import AuthProvider from './providers/AuthProvider'
 
 
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>

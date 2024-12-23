@@ -1,58 +1,86 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, replace, useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import toast from "react-hot-toast";
+import { useContext, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
+
 
 const Signup = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { signInWithGoogle, createUser, updateUserProfile, setUser } = useAuth();
+    const {createUser, setUser,  signInWithGoogle,updateUserProfile} = useContext(AuthContext)
+    const [error, setError] = useState({})
     const from = location.state || '/';
 
 
-    const handleSignUp = (e) =>{
+    const handleSubmit = async(e) =>{
         e.preventDefault();
-        const form = e.target
-    const email = form.email.value
-    const name = form.name.value
-    const photo = form.photo.value
-    const pass = form.password.value
-    console.log(email,name,photo,pass);
-          // password validation
-          const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>])[A-Za-z\d!@#$%^&*(),.?":{}|<>]{6,}$/;
-          if(!passwordRegex.test(password)){
-              return toast.error('password is not valid')
-          }
-          createUser(email,pass)
-          .then(res =>{
-            const user = res.user;
-            setUser(user)
-            toast.success('Signup Successful')
-            navigate(from, {replace: true})
-          })
-          .catch(err=>{
-            console.error(err);
-            toast.error(err.message)
-          })
-          
-          
-             
+        const form = e.target;
+    const email = form.email.value;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const password = form.password.value;
+    // validation password
+    if(!/^(?=.*[A-Z])(?=.*[a-z]).{6,}$/.test(password)){
+        setError({ password: "Password must contain at least one uppercase letter, one lowercase letter, and be at least 6 characters long." })
+        return;
+      }
+      else{
+        setError({password : ''})
+      }
+    
+    try {
        
+        const result = await createUser(email, password)
+        await updateUserProfile(name, photo)
+        setUser({ ...result.user, photoURL: photo, displayName: name })
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Signup Successful!!",
+          showConfirmButton: false,
+          timer: 1500
+        });
+        navigate(from, {replace:true})
+      } catch (err) {
+        Swal.fire({
+            icon: "error",
+            title: "Signup failed!",
+            text:  err.message || "Something went wrong.",
+          
+          });
+      }
+
    
     }
 
-    const handleGoogleSignIn = () =>{
-        
-            signInWithGoogle()
-            toast.success('Signin Successful')
-            navigate(from, { replace: true })
+    const handleGoogleSignIn = async() =>{
+        try {
+            await signInWithGoogle()
+      
+            Swal.fire({
+                position: "center",
+                icon: "success",
+                title: "Signin  successful!",
+                showConfirmButton: false,
+                timer: 1500
+              });
+            navigate(from, {replace:true})
+          } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Signin failed!",
+                text:  err.message || "Something went wrong.",
+              
+              });
+          }
       
     }
     return (
         <div className="flex justify-center items-center min-h-screen bg-softWhite">
         <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
             <h2 className="text-3xl font-bold font-lora text-richGreen text-center mb-6">Create an account here</h2>
-            <form onSubmit={handleSignUp} className="space-y-4 font-roboto">
+            <form onSubmit={handleSubmit} className="space-y-4 font-roboto">
             {/* name */}
             <div>
                 <label htmlFor="name" className="block text-sm text-charcoalGray">Name</label>
@@ -79,7 +107,7 @@ const Signup = () => {
                 <input 
                 type="text"
                 name="photo"
-                id=""
+                id="photoURL"
                 placeholder="photoURL"
                 className="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-richGreen"  required/>
             </div>
@@ -92,6 +120,13 @@ const Signup = () => {
                 id="password"
                 placeholder="Enter your password"
                 className="w-full mt-1 p-2 border rounded focus:outline-none focus:ring-2 focus:ring-richGreen"  required/>
+                 {
+              error.password && (
+                <label  className="block text-red-700 font-medium mb-2">
+              {error.password}
+            </label>
+              )
+            }
             </div>
             {/* login btn */}
             <div>

@@ -1,18 +1,20 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
 const Signin = () => {
-    const{signIn, signInWithGoogle} = useAuth();
+   const { signInUser, setUser,  signInWithGoogle} = useContext(AuthContext)
     const navigate = useNavigate();
     const location =useLocation()
     const from = location?.state || '/'
 
     // Google Signin
-  const handleGoogleSignIn = async () => {
+  const handleGoogleSignIn = () => {
     try {
-     await signInWithGoogle()
+      signInWithGoogle()
 
       toast.success('Signin Successful')
       navigate(from, { replace: true })
@@ -26,15 +28,8 @@ const Signin = () => {
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
-    const pass = form.password.value;
-    try {
-        //User Login
-        await signIn(email, pass)
-        toast.success('Signin Successful')
-        navigate(from, { replace: true })
-      } catch (err) {
-        toast.error(err?.message)
-      }
+    const password = form.password.value;
+   console.log({email,password});
 
   }
     return (
