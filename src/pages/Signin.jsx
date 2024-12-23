@@ -1,9 +1,8 @@
 import { FcGoogle } from "react-icons/fc";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-
-import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
+import Swal from "sweetalert2";
 
 const Signin = () => {
    const { signInUser, setUser,  signInWithGoogle} = useContext(AuthContext)
@@ -12,24 +11,53 @@ const Signin = () => {
     const from = location?.state || '/'
 
     // Google Signin
-  const handleGoogleSignIn = () => {
-    try {
-      signInWithGoogle()
-
-      toast.success('Signin Successful')
-      navigate(from, { replace: true })
-    } catch (err) {
-      console.log(err)
-      toast.error(err?.message)
-    }
-  }
+  const handleGoogleSignIn = async() =>{
+         try {
+             await signInWithGoogle()
+       
+             Swal.fire({
+                 position: "center",
+                 icon: "success",
+                 title: "Signin  successful!",
+                 showConfirmButton: false,
+                 timer: 1500
+               });
+             navigate(from, {replace:true})
+           } catch (err) {
+             Swal.fire({
+                 icon: "error",
+                 title: "Signin failed!",
+                 text:  err.message || "Something went wrong.",
+               
+               });
+           }
+       
+     }
    // Email Password Signin
   const handleLogIn = async(e) =>{
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
-   console.log({email,password});
+   try{
+    await signInUser(email,password)
+    Swal.fire({
+        position: "center",
+        icon: "success",
+        title: "Signin  successful!",
+        showConfirmButton: false,
+        timer: 1500
+      });
+      navigate(from, {replace: true})
+
+   }catch(err){
+    Swal.fire({
+        icon: "error",
+        title: "Signin failed!",
+        text:  err.message || "Something went wrong.",
+      
+      });
+   }
 
   }
     return (
