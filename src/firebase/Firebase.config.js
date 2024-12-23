@@ -5,12 +5,12 @@ import { initializeApp } from "firebase/app";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_apiKey,
-  authDomain: import.meta.env.VITE_authDomain,
-  projectId: import.meta.env.VITE_projectId,
-  storageBucket: import.meta.env.VITE_storageBucket,
-  messagingSenderId: import.meta.env.VITE_messagingSenderId,
-  appId: import.meta.env.VITE_appId,
+  apiKey: "AIzaSyCSwKphmsltkWyd3_FoXEivmXSplEwyG7Y",
+  authDomain: "bookhaven-44891.firebaseapp.com",
+  projectId: "bookhaven-44891",
+  storageBucket: "bookhaven-44891.firebasestorage.app",
+  messagingSenderId: "940264502217",
+  appId: "1:940264502217:web:4e101f6f0d92924eb56e18"
 };
 
 // Initialize Firebase

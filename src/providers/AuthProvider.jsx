@@ -22,7 +22,7 @@ const AuthProvider = ({children}) => {
         setLoading(true)
         return signInWithPopup(auth, googleProvider)
       }
-      const logOut = async () => {
+      const logOut = () => {
         setLoading(true)
         return signOut(auth)
       }
@@ -35,14 +35,14 @@ const AuthProvider = ({children}) => {
   }
 
   useEffect(()=>{
-    const unsubscribe = onAuthStateChanged(auth, async currentUser =>{
-        if(currentUser?.email){
+    const unsubscribe = onAuthStateChanged(auth, currentUser =>{
+     
             setUser(currentUser)
             setLoading(false)
-        }
+       
     })
     return () => {
-        return unsubscribe();
+         unsubscribe();
     }
   },[])
 

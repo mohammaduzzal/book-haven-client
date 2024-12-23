@@ -4,7 +4,7 @@ import logo from '../assets/logo.png'
 import useAuth from "../hooks/useAuth";
 
 const Navbar = () => {
-  const {user} = useAuth()
+    const {user,logOut} = useAuth()
     
     return (
         <div className="navbar bg-softWhite shadow-sm container px-4 mx-auto">
@@ -90,7 +90,7 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li className="mt-2">
-                  <button className="bg-dustyBlue text-softWhite px-4 py-2 rounded hover:bg-richGreen">
+                  <button onClick={logOut} className="bg-dustyBlue text-softWhite px-4 py-2 rounded hover:bg-richGreen">
                     Logout
                   </button>
                 </li>
