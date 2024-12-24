@@ -9,6 +9,7 @@ import AuthLayout from "../mainLayout/AuthLayout";
 import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PrivateRoute from "./PrivateRoute";
+import UpdateBook from "../components/UpdateBook";
 
 const router = createBrowserRouter([
     {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
             {
                 path: '/borrowedBooks',
                 element: <PrivateRoute><BorrowedBooks></BorrowedBooks></PrivateRoute>
+            },
+            {
+                path: '/update-book/:id',
+                element: <PrivateRoute><UpdateBook></UpdateBook></PrivateRoute>
             },
         ]
         

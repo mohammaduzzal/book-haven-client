@@ -133,6 +133,7 @@ const AddBook = () => {
                     type="number"
                      name="rating"
                       id="rating"
+                      step='any'
                       className="mt-1 block w-full border border-slateGray rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-richGreen"
                       placeholder="Rating"
                       required />
