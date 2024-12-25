@@ -18,7 +18,8 @@ const AddBook = () => {
         const category = form.category.value;
         const description = form.description.value;
         const rating = parseFloat(form.rating.value);
-        const email = user.email;
+        const email = user?.email;
+        
         // rating validation
         if(rating > 5){
             return Swal.fire({
@@ -37,7 +38,8 @@ const AddBook = () => {
         category,
         description,
         rating,
-        email
+        email,
+       
 
     };
     // post data
@@ -107,10 +109,10 @@ const AddBook = () => {
                 <div>
                 <label className="block text-charcoalGray">Category</label>
                 <select name="category" id="category" className="mt-1 block w-full border border-slateGray rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-richGreen">
-                        <option value="Novel" disabled>category</option>
+                        <option value="category" disabled>category</option>
                         <option value="Thriller">Thriller</option>
                         <option value="History">History</option>
-                        <option value="Drama">Novel</option>
+                        <option value="Novel">Novel</option>
                         <option value="Sci-Fi">Sci-Fi</option>
 
                 </select>
