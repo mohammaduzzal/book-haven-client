@@ -10,6 +10,7 @@ import Signin from "../pages/Signin";
 import Signup from "../pages/Signup";
 import PrivateRoute from "./PrivateRoute";
 import UpdateBook from "../components/UpdateBook";
+import SpecificCategory from "../components/SpecificCategory";
 
 const router = createBrowserRouter([
     {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
             {
                 path: '/update-book/:id',
                 element: <PrivateRoute><UpdateBook></UpdateBook></PrivateRoute>
+            },
+            {
+                path: '/category/:category',
+                element: <SpecificCategory></SpecificCategory>
             },
         ]
         
