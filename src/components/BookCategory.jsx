@@ -1,6 +1,9 @@
 import axios from "axios";
+import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 const BookCategory = () => {
@@ -10,11 +13,11 @@ const BookCategory = () => {
         const fetchAllBooks = async() =>{
             const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/categories`)
            setCategories(data)
+           
         }
         fetchAllBooks();
 
     },[])
-    console.log(categories);
    
     return (
         <div className="container mx-auto p-8 font-lora">
