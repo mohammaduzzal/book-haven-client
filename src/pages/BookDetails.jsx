@@ -54,15 +54,17 @@ const BookDetails = () => {
                 quantity:prev.quantity -1,
             }))
             setModalOpen(false);
-            Swal.fire({
-                            position: "center",
-                            icon: "success",
-                            title: "Book borrowed successfully!!",
-                            showConfirmButton: false,
-                            timer: 1500
-                          });
-                          navigate('/borrowedBooks')
+           
+                          
         }
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: "Book borrowed successfully!!",
+            showConfirmButton: false,
+            timer: 1500
+          });
+        navigate('/borrowedBooks')
 
     }catch(err){
         Swal.fire({
