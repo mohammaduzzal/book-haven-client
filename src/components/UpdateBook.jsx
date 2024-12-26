@@ -1,10 +1,13 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
+
 
 const UpdateBook = () => {
+    
     const {id} = useParams()
     const [book, setBook] = useState({})
     const navigate = useNavigate()
@@ -16,7 +19,7 @@ const UpdateBook = () => {
 
 // fetching single book data by id
     const bookData = async() =>{
-        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/book/${id}`)
+        const {data} = await axiosSecure.get(`/book/${id}`)
         setBook(data)
     }
     const handleSubmit = async(e) =>{
@@ -36,7 +39,7 @@ const UpdateBook = () => {
         }
         // update book data with the help of axios and put method
         try{
-            await axios.put(`${import.meta.env.VITE_API_URL}/update-book/${id}`, bookDetails)
+            await axiosSecure.put(`/update-book/${id}`, bookDetails)
              Swal.fire({
                             position: "center",
                             icon: "success",

@@ -1,17 +1,17 @@
-import axios from "axios";
-import { useContext } from "react";
 import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
-import { AuthContext } from "../providers/AuthProvider";
-import LoadingSpinner from "./LoadingSpinner";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
+
 
 
 const BookCategory = () => {
+    
     const [categories, setCategories] = useState([])
 
     useEffect(()=>{
         const fetchAllBooks = async() =>{
-            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/categories`)
+            const {data} = await axiosSecure.get(`/categories`)
            setCategories(data)
            
         }

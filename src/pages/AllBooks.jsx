@@ -1,12 +1,15 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
 import Book from "../components/Book";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
+
 
 
 const AllBooks = () => {
+  
     const [books, setBooks] = useState([])
     const [filteredBooks, setFilteredBooks] = useState([]);
     const [viewMode, setViewMode] = useState("card");
@@ -14,7 +17,7 @@ const AllBooks = () => {
 
     useEffect(()=>{
         const fetchAllBooks = async() =>{
-            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/books`)
+            const {data} = await axiosSecure.get(`/books`)
             setBooks(data)
             setFilteredBooks(data);
         }
