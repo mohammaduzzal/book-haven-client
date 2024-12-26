@@ -3,6 +3,7 @@ import { Link, replace, useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 
 const Signup = () => {
@@ -10,7 +11,7 @@ const Signup = () => {
     const location = useLocation();
     const {createUser, setUser,  signInWithGoogle,updateUserProfile} = useContext(AuthContext)
     const [error, setError] = useState({})
-    const from = location.state || '/';
+    const from = location?.state?.from?.pathname || "/";
 
 
     const handleSubmit = async(e) =>{
@@ -76,7 +77,12 @@ const Signup = () => {
           }
       
     }
-    return (
+    return ( <>
+     {/* helmet */}
+     <Helmet>
+    <title>Signup || Book Haven</title>
+    </Helmet>
+
         <div className="flex justify-center items-center min-h-screen bg-softWhite">
         <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
             <h2 className="text-3xl font-bold font-lora text-richGreen text-center mb-6">Create an account here</h2>
@@ -154,7 +160,7 @@ const Signup = () => {
         </div>
         
     </div>
-    );
+    </> );
 };
 
 export default Signup;

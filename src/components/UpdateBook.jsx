@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -57,7 +58,11 @@ const UpdateBook = () => {
 
     }
     
-    return (
+    return (<>
+         {/* helmet */}
+    <Helmet>
+    <title>Update Book || Book Haven</title>
+    </Helmet>
         <div className="max-w-2xl mx-auto p-6 bg-softWhite shadow-md rounded-md">
         <h2 className="text-2xl font-bold mb-4 text-richGreen font-lora">Update a Book</h2>
         <form onSubmit={handleSubmit} className="space-y-4 font-roboto">
@@ -129,7 +134,7 @@ const UpdateBook = () => {
         </form>
        
     </div>
-    );
+    </>);
 };
 
 export default UpdateBook;

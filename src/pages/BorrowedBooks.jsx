@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const BorrowedBooks = () => {
     const {user} = useContext(AuthContext)
@@ -49,6 +50,7 @@ const BorrowedBooks = () => {
                 title: "Failed!",
                 text: err.message || "Something went wrong.",
               });
+              
             }
           }
         });
@@ -56,8 +58,13 @@ const BorrowedBooks = () => {
       
 
 
-    return (
+    return ( <>
+       {/* helmet */}
+    <Helmet>
+    <title>Borrowed Books || Book Haven</title>
+    </Helmet>
         <div className="container mx-auto p-6">
+          <h2 className="text-4xl text-richGreen font-semibold font-lora mb-8 text-center">Borrowed Book</h2>
             <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
@@ -112,7 +119,7 @@ const BorrowedBooks = () => {
   </table>
 </div>
         </div>
-    );
+        </>);
 };
 
 export default BorrowedBooks;

@@ -2,6 +2,7 @@ import { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 
 const AddBook = () => {
@@ -57,7 +58,11 @@ const AddBook = () => {
         }
     })
     }
-    return (
+    return (<>
+    {/* helmet */}
+    <Helmet>
+    <title>Add Book || Book Haven</title>
+    </Helmet>
         <div className="max-w-3xl mx-auto p-6 bg-softWhite shadow-md rounded-md">
             <h2 className="text-2xl font-bold mb-4 text-richGreen font-lora">Add a Book</h2>
             <form onSubmit={handleSubmit} className="space-y-4 font-roboto">
@@ -152,7 +157,7 @@ const AddBook = () => {
                 </p>
             </div>
         </div>
-    );
+        </> );
 };
 
 export default AddBook;

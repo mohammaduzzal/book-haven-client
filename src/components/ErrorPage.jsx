@@ -1,7 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 
 const ErrorPage = () => {
-    return (
+    return (<>
+     {/* helmet */}
+     <Helmet>
+    <title>Error || Book Haven</title>
+    </Helmet>
         <div className="flex flex-col items-center justify-center min-h-screen bg-softWhite">
   <div className="text-center">
     <h1 className="text-9xl font-bold text-richGreen">404</h1>
@@ -21,7 +26,7 @@ const ErrorPage = () => {
  
 </div>
 
-    );
+</>);
 };
 
 export default ErrorPage;

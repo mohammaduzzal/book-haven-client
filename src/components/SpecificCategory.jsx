@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import Rating from "react-rating-stars-component";
 import { AuthContext } from "../providers/AuthProvider";
 import LoadingSpinner from "./LoadingSpinner";
+import { Helmet } from "react-helmet-async";
 
 const SpecificCategory = () => {
   const {loading} = useContext(AuthContext)
@@ -20,7 +21,12 @@ const SpecificCategory = () => {
 
     if(loading) return <LoadingSpinner></LoadingSpinner>
 
-    return (
+    return (<>
+     {/* helmet */}
+     <Helmet>
+    <title>{category} books || Book Haven</title>
+    </Helmet>
+
         <div className="container mx-auto p-8">
               <h2 className="text-2xl lg:text-3xl font-bold text-richGreen text-center mt-4 mb-8 font-lora">
                 {category} Books
@@ -52,7 +58,7 @@ const SpecificCategory = () => {
             </div>
 
         </div>
-    );
+        </> );
 };
 
 export default SpecificCategory;

@@ -7,6 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const BookDetails = () => {
     const {user} = useContext(AuthContext)
@@ -71,7 +72,7 @@ const BookDetails = () => {
         Swal.fire({
             icon: "error",
             title: "Failed!!",
-            text:  err.message || "Something went wrong.",
+            text:  err.response?.data?.message || "Something went wrong.",
           
           });
     }
@@ -79,7 +80,11 @@ const BookDetails = () => {
 
   }
   
-    return (
+    return (<>
+     {/* helmet */}
+     <Helmet>
+    <title>Book Details || Book Haven</title>
+    </Helmet>
         <div className="container mx-auto p-8">
             <div className="flex flex-col lg:flex-row items-center gap-8 p-6 bg-bookBeige shadow-lg rounded-lg">
                 {/* img */}
@@ -207,7 +212,7 @@ const BookDetails = () => {
             }
             
         </div>
-    );
+        </>);
 };
 
 export default BookDetails;

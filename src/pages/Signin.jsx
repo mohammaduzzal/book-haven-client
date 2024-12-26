@@ -3,12 +3,13 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const Signin = () => {
    const { signInUser, setUser,  signInWithGoogle} = useContext(AuthContext)
     const navigate = useNavigate();
     const location =useLocation()
-    const from = location?.state || '/'
+    const from = location?.state?.from?.pathname || "/";
 
     // Google Signin
   const handleGoogleSignIn = async() =>{
@@ -60,7 +61,12 @@ const Signin = () => {
    }
 
   }
-    return (
+    return ( <>
+     {/* helmet */}
+     <Helmet>
+    <title>Signin || Book Haven</title>
+    </Helmet>
+
         <div className="flex justify-center items-center min-h-screen bg-softWhite">
             <div className="max-w-md w-full bg-white shadow-lg rounded-lg p-8">
                 <h2 className="text-3xl font-bold font-lora text-richGreen text-center mb-6">Login</h2>
@@ -110,7 +116,7 @@ const Signin = () => {
             </div>
             
         </div>
-    );
+        </>);
 };
 
 export default Signin;
