@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import axios from "axios";
+
 
 
 
@@ -17,7 +18,7 @@ const BorrowedBooks = () => {
     },[email])
 
     const fetchBorrowedBooks  = async() =>{
-        const {data} = await axiosSecure.get(`/borrowed/${email}`)
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed/${email}`)
         setBorrows(data)
     }
     // book return func
@@ -34,7 +35,7 @@ const BorrowedBooks = () => {
           if (result.isConfirmed) {
             try {
               // Perform the DELETE request
-              const { data } = await axiosSecure.delete(`/return-book/${id}`);
+              const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/return-book/${id}`);
               
               if (data.deletedCount > 0) {
                 // Update the state after successful deletion

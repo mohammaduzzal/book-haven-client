@@ -1,8 +1,9 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+
 
 
 
@@ -19,7 +20,7 @@ const UpdateBook = () => {
 
 // fetching single book data by id
     const bookData = async() =>{
-        const {data} = await axiosSecure.get(`/book/${id}`)
+        const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/book/${id}`)
         setBook(data)
     }
     const handleSubmit = async(e) =>{

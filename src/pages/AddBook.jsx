@@ -2,7 +2,7 @@ import { useContext } from "react";
 import Swal from "sweetalert2";
 import { AuthContext } from "../providers/AuthProvider";
 import { Helmet } from "react-helmet-async";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import axios from "axios";
 
 
 
@@ -47,7 +47,7 @@ const AddBook = () => {
 
     };
     // post data
-     axiosSecure.post(`/add-book`, bookData)
+     axios.post(`${import.meta.env.VITE_API_URL}/add-book`, bookData)
     .then(data =>{
         if(data.data.insertedId){
             form.reset()

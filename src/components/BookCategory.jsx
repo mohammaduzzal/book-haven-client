@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link} from "react-router-dom";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import axios from "axios";
 
 
 
@@ -11,7 +11,7 @@ const BookCategory = () => {
 
     useEffect(()=>{
         const fetchAllBooks = async() =>{
-            const {data} = await axiosSecure.get(`/categories`)
+            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/categories`)
            setCategories(data)
            
         }

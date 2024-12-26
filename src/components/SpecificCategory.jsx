@@ -4,7 +4,8 @@ import Rating from "react-rating-stars-component";
 import { AuthContext } from "../providers/AuthProvider";
 import LoadingSpinner from "./LoadingSpinner";
 import { Helmet } from "react-helmet-async";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import axios from "axios";
+
 
 
 
@@ -15,7 +16,7 @@ const SpecificCategory = () => {
     const [books, setBooks] = useState([]);
     useEffect(()=>{
         const fetchAllBooks = async() =>{
-            const {data} = await axiosSecure.get(`/books?category=${category}`)
+            const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/books?category=${category}`)
            setBooks(data)
           
         }

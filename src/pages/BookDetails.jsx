@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-import { axiosSecure } from "../hooks/useAxiosSecure";
+import axios from "axios";
 
 
 
@@ -27,7 +27,7 @@ const BookDetails = () => {
    },[id])
 
    const fetchBookData = async () =>{
-    const {data} = await axiosSecure.get(`/book/${id}`)
+    const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/book/${id}`)
     setBook(data)
   }
 
@@ -52,7 +52,7 @@ const BookDetails = () => {
 
     }
     try{
-        const {data} = await axiosSecure.post(`/borrow-book/${id}`,borrowData)
+        const {data} = await axios.post(`${import.meta.env.VITE_API_URL}/borrow-book/${id}`,borrowData)
         if(data.modifiedCount > 0){
             setBook(prev =>({
                 ...prev,
