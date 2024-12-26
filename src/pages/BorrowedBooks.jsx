@@ -2,11 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet-async";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import { axiosSecure } from "../hooks/useAxiosSecure";
+
 
 
 const BorrowedBooks = () => {
-  const axiosSecure = useAxiosSecure()
+  
     const {user} = useContext(AuthContext)
     const email = user?.email;
     const [borrows, setBorrows] = useState([])
