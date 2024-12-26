@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const BorrowedBooks = () => {
     const {user} = useContext(AuthContext)
@@ -15,7 +16,43 @@ const BorrowedBooks = () => {
         const {data} = await axios.get(`${import.meta.env.VITE_API_URL}/borrowed/${email}`)
         setBorrows(data)
     }
-    console.log(borrows);
+    // book return func
+  const handleReturnBook = async(id) =>{
+    try{
+        // delete method
+        const {data} = await axios.delete(`${import.meta.env.VITE_API_URL}/return-book/${id}`)
+    if(data.deletedCount > 0){
+        // update after delete 
+        const remainingBook = borrows.filter(borrow => borrow._id !== id);
+        setBorrows(remainingBook)
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Return it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              Swal.fire({
+                title: "Returned!",
+                text: "Your file has been returned.",
+                icon: "success"
+              });
+            }
+          });
+         
+    }
+
+    }catch(err){
+        Swal.fire({
+            icon: "error",
+            title: "Failed!",
+            text: err.message || "Something went wrong.",
+          });
+    }
+  }
 
     return (
         <div className="container mx-auto p-6">
@@ -61,7 +98,9 @@ const BorrowedBooks = () => {
                 <td className="font-roboto text-charcoalGray">{borrow.borrowDate}</td>
                 <td className="font-roboto text-charcoalGray">{borrow.dateOfReturn}</td>
                 <th>
-                  <button className="btn btn-ghost btn-xs bg-richGreen hover:bg-goldenYellow text-white font-roboto">Return</button>
+                  <button 
+                  onClick={() => handleReturnBook(borrow._id)}
+                  className="btn btn-ghost btn-xs bg-richGreen hover:bg-goldenYellow text-white font-roboto">Return Book</button>
                 </th>
               </tr>
             ))
