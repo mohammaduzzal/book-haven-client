@@ -17,42 +17,44 @@ const BorrowedBooks = () => {
         setBorrows(data)
     }
     // book return func
-  const handleReturnBook = async(id) =>{
-    try{
-        // delete method
-        const {data} = await axios.delete(`${import.meta.env.VITE_API_URL}/return-book/${id}`)
-    if(data.deletedCount > 0){
-        // update after delete 
-        const remainingBook = borrows.filter(borrow => borrow._id !== id);
-        setBorrows(remainingBook)
+    const handleReturnBook = async (id) => {
         Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, Return it!"
-          }).then((result) => {
-            if (result.isConfirmed) {
+          title: "Are you sure?",
+          text: "You won't be able to revert this!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Return it!",
+        }).then(async (result) => {
+          if (result.isConfirmed) {
+            try {
+              // Perform the DELETE request
+              const { data } = await axios.delete(`${import.meta.env.VITE_API_URL}/return-book/${id}`);
+              
+              if (data.deletedCount > 0) {
+                // Update the state after successful deletion
+                const remainingBooks = borrows.filter((borrow) => borrow._id !== id);
+                setBorrows(remainingBooks);
+      
+                Swal.fire({
+                  title: "Returned!",
+                  text: "The book has been successfully returned.",
+                  icon: "success",
+                });
+              }
+            } catch (err) {
               Swal.fire({
-                title: "Returned!",
-                text: "Your file has been returned.",
-                icon: "success"
+                icon: "error",
+                title: "Failed!",
+                text: err.message || "Something went wrong.",
               });
             }
-          });
-         
-    }
+          }
+        });
+      };
+      
 
-    }catch(err){
-        Swal.fire({
-            icon: "error",
-            title: "Failed!",
-            text: err.message || "Something went wrong.",
-          });
-    }
-  }
 
     return (
         <div className="container mx-auto p-6">

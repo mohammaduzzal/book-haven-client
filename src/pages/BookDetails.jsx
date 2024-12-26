@@ -16,7 +16,7 @@ const BookDetails = () => {
    const [isModalOpen, setModalOpen] = useState(false);
    const [startDate, setStartDate] = useState(new Date());
    const [returnDate, setReturnDate] = useState(new Date())
-   const {image,book_name,author_name,category,rating,description,quantity} = book || {};
+   const {image,book_name,author_name,category,rating,description,quantity,_id} = book || {};
 
    useEffect(()=>{
     fetchBookData()
@@ -43,7 +43,8 @@ const BookDetails = () => {
         userName ,
         userEmail,
         borrowDate,
-        dateOfReturn
+        dateOfReturn,
+        bookId : _id
 
     }
     try{
