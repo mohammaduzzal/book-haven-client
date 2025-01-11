@@ -6,7 +6,7 @@ Book Haven is a library management system designed to streamline the process of 
 The purpose of Book Haven is to provide a user-friendly interface for managing a library's book inventory, tracking borrowed books, and enhancing the user experience with intuitive design and animations.
 
 ## Live URL
-[Book Haven Live Demo](https://your-live-project-url.com)
+[Book Haven Live Demo](https://bookhaven-6dfda.web.app/)
 
 ## Key Features
 
